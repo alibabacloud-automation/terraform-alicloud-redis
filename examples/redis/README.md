@@ -1,4 +1,3 @@
-
 # Alibaba Cloud Redis Instance Terraform Module   
 terraform-alicloud-rds
 ---
@@ -35,6 +34,7 @@ module "redis_example" {
   backup_period        = ["Monday", "Wednesday", "Friday"]
   account_name         = "redisTest"
   account_password     = "123456Abc"
+
 }
 ```
 
@@ -50,7 +50,7 @@ module "redis_example" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 |engine               | Engine type. Value options: Redis and Memcache .    |  string     |     Redis      | yes |  
-|engine_version       | Engine version. Value options:<br>2.8/4.0/5.0 for Redis ;<br>2.8 for Memcache   |   string  |    5.0    |    yes       | 
+|engine_version       | Engine version. Value options:<br>2.8/4.0/5.0 for Redis ;<br>2.8 for Memcache   |   string  |    2.8    |    yes       | 
 |instance_class       | Type of the applied ApsaraDB for Redis instance. For details, see [Instance type table](https://www.alibabacloud.com/help/doc-detail/26350.htm?spm=a2c63.l28256.b99.13.271d5175pIy8vr).   |     string  |  redis.master.mid.default   |    yes       |  
 |instance_name        | The name of DB instance. It a string of 2 to 256 characters.    |  string     |     myTest      |    no       | 
 |instance_charge_type | Valid values are Prepaid, Postpaid, Default to Postpaid.  |  string     |     PostPaid      |     no      |  = "PostPaid"
@@ -80,4 +80,3 @@ Reference
 * [Terraform-Provider-Alicloud Github](https://github.com/terraform-providers/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://www.terraform.io/docs/providers/alicloud/index.html)
-
