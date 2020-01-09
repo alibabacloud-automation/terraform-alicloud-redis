@@ -1,4 +1,4 @@
-# Alibaba Cloud Redis-5.0-Enterprise-Rwsplit (Enhanced Performance Type) Terraform Module
+# Alibaba Cloud Redis-5.0-Enterprise-Standard-Enhanced-Performance-Type Terraform Module
 
 Configuration in this directory creates set of Redis resources including  instance,  account and backup policy.
 
@@ -8,7 +8,7 @@ To run this example you need to execute:
 
 ```bash
 module "redis" {
-  source  = "terraform-alicloud-modules/redis/alicloud//modules/redis-5.0-enterprise-rwsplit-(enhanced_performance_type)"
+  source  = "terraform-alicloud-modules/redis/alicloud//modules/redis-5.0-enterprise-standard-enhanced-performance-type"
   version = "~> 1.0"
 
   # omitted...

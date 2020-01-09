@@ -19,7 +19,7 @@ resource "alicloud_vswitch" "this" {
   cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 10)
 }
 module "redis_example" {
-  source = "../../modules/redis-4.0-enterprise-cluster-(hybrid_storage)"
+  source = "../../modules/redis-4.0-enterprise-cluster-hybrid-storage"
   region = var.region
 
   #################
