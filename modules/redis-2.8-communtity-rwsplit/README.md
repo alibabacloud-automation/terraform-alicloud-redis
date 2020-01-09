@@ -1,4 +1,4 @@
-# Alibaba Cloud Redis-5.0 Terraform Module
+# Alibaba Cloud Redis-2.8-Communtity-Rwsplit Terraform Module
 
 Configuration in this directory creates set of Redis resources including  instance,  account and backup policy.
 
@@ -8,7 +8,7 @@ To run this example you need to execute:
 
 ```bash
 module "redis" {
-  source  = "terraform-alicloud-modules/redis/alicloud//modules/redis"
+  source  = "terraform-alicloud-modules/redis/alicloud//modules/redis-2.8-communtity-rwsplit"
   version = "~> 1.0"
 
   # omitted...
