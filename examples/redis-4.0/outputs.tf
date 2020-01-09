@@ -82,8 +82,8 @@ output "this_redis_instance_maintain_start_time" {
   value       = module.redis_example.this_redis_instance_maintain_start_time
 }
 output "this_redis_instance_maintain_end_time" {
-  ddescription = "The end time of the operation and maintenance time period of the instance."
-  value        = module.redis_example.this_redis_instance_maintain_end_time
+  description = "The end time of the operation and maintenance time period of the instance."
+  value       = module.redis_example.this_redis_instance_maintain_end_time
 }
 
 #################

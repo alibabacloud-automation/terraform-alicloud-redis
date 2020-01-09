@@ -19,7 +19,7 @@ resource "alicloud_vswitch" "this" {
   cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 2)
 }
 module "redis_example" {
-  source = "../../modules/redis"
+  source = "../../modules/redis-5.0-communtity-cluster"
   region = var.region
 
   #################
