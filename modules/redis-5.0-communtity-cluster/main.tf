@@ -1,5 +1,5 @@
 provider "alicloud" {
-  version                 = ">=1.64.0"
+  version                 = ">=1.68.0"
   profile                 = var.profile != "" ? var.profile : null
   shared_credentials_file = var.shared_credentials_file != "" ? var.shared_credentials_file : null
   region                  = var.region != "" ? var.region : null
@@ -9,13 +9,16 @@ provider "alicloud" {
 locals {
   engine         = "Redis"
   engine_version = "5.0"
+  edition_type   = "Community"
+  architecture   = "cluster"
 }
-
 
 data "alicloud_kvstore_instance_classes" "default" {
   engine         = local.engine
   engine_version = local.engine_version
   zone_id        = var.availability_zone
+  edition_type   = local.edition_type
+  architecture   = local.architecture
 }
 module "redis" {
 
