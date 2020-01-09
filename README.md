@@ -1,6 +1,6 @@
-Terraform module which creates redis instnace and other resources on Alibaba Cloud
-# terraform-alicloud-redis
-=====================================================================
+Terraform module which creates redis instnace and other resources on Alibaba Cloud   
+terraform-alicloud-redis
+==================================================================================
 
 English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/blob/master/README-CN.md)
 
@@ -8,25 +8,20 @@ Terraform module which creates Redis instnace and other resources on Alibaba Clo
 
 These types of resources are supported:
 
-* [Alicloud_kvstore_instances](https://www.terraform.io/docs/providers/alicloud/d/kvstore_instances.html)
-* [Alicloud_kvstore_backup_policy](https://www.terraform.io/docs/providers/alicloud/r/kvstore_backup_policy.html)
-* [Alicloud_kvstore_account](https://www.terraform.io/docs/providers/alicloud/r/kvstore_account.html)
+* [alicloud_kvstore_instance](https://www.terraform.io/docs/providers/alicloud/d/kvstore_instances.html)
+* [alicloud_kvstore_backup_policy](https://www.terraform.io/docs/providers/alicloud/r/kvstore_backup_policy.html)
+* [alicloud_kvstore_account](https://www.terraform.io/docs/providers/alicloud/r/kvstore_account.html)
 
-----------------------
 ## Terraform versions
 
 This module requires Terraform 0.12.
 
-
 Usage
 -----
-You can use this in your terraform template with the following steps.
-
-1. Adding a module resource to your template, e.g. main.tf
     
 ```hcl
-module "redis_example" {
-  source               = "terraform-alicloud-modules/redis/alicloud/"
+module "redis" {
+  source               = "terraform-alicloud-modules/redis/alicloud"
   #################
   # Redis Instance
   #################
@@ -36,10 +31,9 @@ module "redis_example" {
   instance_name        = "myInstance"
   instance_class       = "redis.master.mid.default"
   period               = 1
-  vswitch_id           = "vsw-bp1tili2u5kpgdk84osjk"
+  vswitch_id           = "vsw-bp1tili2xxxxx"
   security_ips         = ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
   availability_zone    = "cn-beijing-f"
-  vswitch_id           = "vsw-2zeuq8sx0ikfj73ev2iah"
   security_ips         = ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
   instance_charge_type = "PostPaid"
   tags = {
@@ -72,9 +66,23 @@ module "redis_example" {
   backup_policy_backup_period  = ["Monday", "Wednesday", "Friday"]
 }
 ```
+## Modules
+
+This module provides rich sub-modules to support different Redis version and usage scenario, like:
+
+* [Redis 2.8 for Community Cluster](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-2.8-communtity-cluster)
+* [Redis 4.0 for Community Read-Write split](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-4.0-communtity-rwsplit)
+* [Enhanced performance Redis 5.0 for Enterprise Standard edition](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-5.0-enterprise-standard-enhanced-performance-type)
+* [Enhanced performance Redis 5.0 for Enterprise Read-Write split](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-5.0-enterprise-rwsplit-enhanced-performance-type)
+* [Enhanced performance Redis 5.0 for Enterprise Cluster](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-5.0-enterprise-cluster-enhanced-performance)
+
+See [more modules](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules).
+
 ## Examples
 
-* [Redis example](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis)
+* [Example of a Redis 5.0](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis-5.0)
+* [Example of a Redis 4.0](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis-4.0)
+* [Example of a Redis 2.8](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis-2.8)
 
 ## Notes
 
@@ -84,7 +92,7 @@ If you have not set them yet, please install [aliyun-cli](https://github.com/ali
 
 Authors
 ---------
-Created and maintained by Yi Jincheng(yi785301535@163.com)
+Created and maintained by Yi Jincheng(yi785301535@163.com), He Guimin(@xiaozhu36, heguimin36@163.com)
 
 License
 ----
