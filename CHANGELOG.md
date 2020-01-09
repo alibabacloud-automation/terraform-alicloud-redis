@@ -1,7 +1,6 @@
 ## 1.1.0 (Unreleased)
 ## 1.0.0 (January 9, 2020)
 
-
 - **Added:** `redis module` [GH-3](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/pull/3)
 
 IMPROVEMENTS:
