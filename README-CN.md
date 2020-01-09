@@ -2,28 +2,21 @@ Terraform module which creates redis instnace and other resources on Alibaba Clo
 # terraform-alicloud-redis
 =====================================================================
 
-English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/blob/master/README-CN.md)
 
-Terraform module which creates Redis instnace and other resources on Alibaba Cloud 
+本 Module 用于在阿里云的 VPC 下创建一个[Redis云数据库](https://help.aliyun.com/document_detail/26342.html). 
 
-These types of resources are supported:
+本 Module 支持创建以下资源:
 
-* [Alicloud_kvstore_instances](https://www.terraform.io/docs/providers/alicloud/d/kvstore_instances.html)
-* [Alicloud_kvstore_backup_policy](https://www.terraform.io/docs/providers/alicloud/r/kvstore_backup_policy.html)
-* [Alicloud_kvstore_account](https://www.terraform.io/docs/providers/alicloud/r/kvstore_account.html)
+* [Redis 数据库实例_(redis_instance)](https://www.terraform.io/docs/providers/alicloud/d/kvstore_instances.html)
+* [Redis 数据库实例的备份策略_(redis_backup_policy)](https://www.terraform.io/docs/providers/alicloud/r/kvstore_backup_policy.html)
+* [Redis 数据库的账号_(redis_account)](https://www.terraform.io/docs/providers/alicloud/r/kvstore_account.html)
 
-----------------------
-## Terraform versions
+## Terraform 版本
 
-This module requires Terraform 0.12.
+本模板要求使用版本 Terraform 0.12。
 
+## 用法
 
-Usage
------
-You can use this in your terraform template with the following steps.
-
-1. Adding a module resource to your template, e.g. main.tf
-    
 ```hcl
 module "redis_example" {
   source               = "terraform-alicloud-modules/redis/alicloud/"
@@ -64,35 +57,35 @@ module "redis_example" {
     },
   ]
 
-  #################
+  #####################
   # Redis backup_policy
-  #################
+  #####################
 
   backup_policy_backup_time    = "02:00Z-03:00Z"
   backup_policy_backup_period  = ["Monday", "Wednesday", "Friday"]
 }
 ```
-## Examples
 
-* [Redis example](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis)
+## 示例
 
-## Notes
+* [Redis 实例完整创建示例创建示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis)
 
-* This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`.
-If you have not set them yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
+## 注意事项
 
+* 本 Module 使用的 AccessKey 和 SecretKey 可以直接从 `profile` 和 `shared_credentials_file` 中获取。如果未设置，可通过下载安装 [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) 后进行配置.
 
-Authors
----------
+作者
+-------
 Created and maintained by Yi Jincheng(yi785301535@163.com)
 
-License
+许可
 ----
 Apache 2 Licensed. See LICENSE for full details.
 
-Reference
+参考
 ---------
 * [Terraform-Provider-Alicloud Github](https://github.com/terraform-providers/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://www.terraform.io/docs/providers/alicloud/index.html)
+
 
