@@ -1,5 +1,5 @@
-Terraform module which creates redis instnace and other resources on Alibaba Cloud
-# terraform-alicloud-redis
+在阿里云上创建一个 Redis 实例和数据库  
+terraform-alicloud-redis
 =====================================================================
 
 
@@ -7,9 +7,9 @@ Terraform module which creates redis instnace and other resources on Alibaba Clo
 
 本 Module 支持创建以下资源:
 
-* [Redis 数据库实例_(redis_instance)](https://www.terraform.io/docs/providers/alicloud/d/kvstore_instances.html)
-* [Redis 数据库实例的备份策略_(redis_backup_policy)](https://www.terraform.io/docs/providers/alicloud/r/kvstore_backup_policy.html)
-* [Redis 数据库的账号_(redis_account)](https://www.terraform.io/docs/providers/alicloud/r/kvstore_account.html)
+* [Redis 数据库实例 (redis_instance)](https://www.terraform.io/docs/providers/alicloud/d/kvstore_instances.html)
+* [Redis 数据库实例的备份策略 (redis_backup_policy)](https://www.terraform.io/docs/providers/alicloud/r/kvstore_backup_policy.html)
+* [Redis 数据库的账号 (redis_account)](https://www.terraform.io/docs/providers/alicloud/r/kvstore_account.html)
 
 ## Terraform 版本
 
@@ -29,10 +29,9 @@ module "redis_example" {
   instance_name        = "myInstance"
   instance_class       = "redis.master.mid.default"
   period               = 1
-  vswitch_id           = "vsw-bp1tili2u5kpgdk84osjk"
+  vswitch_id           = "vsw-bp1tili2uxxxxx"
   security_ips         = ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
   availability_zone    = "cn-beijing-f"
-  vswitch_id           = "vsw-2zeuq8sx0ikfj73ev2iah"
   security_ips         = ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
   instance_charge_type = "PostPaid"
   tags = {
@@ -66,9 +65,23 @@ module "redis_example" {
 }
 ```
 
+## 模板
+
+本 Module 提供了丰富多样的模板用于创建不同版本和规格的 Redis 资源，以满足不同的使用场景，如：
+
+* [社区 Redis 2.8 集群版](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-2.8-communtity-cluster)
+* [社区 Redis 4.0 读写分离版](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-4.0-communtity-rwsplit)
+* [企业级 Redis 5.0 性能增强型标准版](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-5.0-enterprise-standard-enhanced-performance-type)
+* [企业级 Redis 5.0 性能增强型读写分离版](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-5.0-enterprise-rwsplit-enhanced-performance-type)
+* [企业级 Redis 5.0 性能增强型集群版](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules/redis-5.0-enterprise-cluster-enhanced-performance)
+
+更多模板详见 [Modules](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules).
+
 ## 示例
 
-* [Redis 实例完整创建示例创建示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis)
+* [Redis 5.0 创建示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis-5.0)
+* [Redis 4.0 创建示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis-4.0)
+* [Redis 2.8 创建示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/examples/redis-2.8)
 
 ## 注意事项
 
@@ -76,7 +89,7 @@ module "redis_example" {
 
 作者
 -------
-Created and maintained by Yi Jincheng(yi785301535@163.com)
+Created and maintained by Yi Jincheng(yi785301535@163.com), He Guimin(@xiaozhu36, heguimin36@163.com)
 
 许可
 ----
