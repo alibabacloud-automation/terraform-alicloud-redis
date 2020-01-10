@@ -1,10 +1,10 @@
-Terraform module which creates redis instnace and other resources on Alibaba Cloud   
+Terraform module which creates redis instance and other resources on Alibaba Cloud   
 terraform-alicloud-redis
 ==================================================================================
 
 English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/blob/master/README-CN.md)
 
-Terraform module which creates Redis instnace and other resources on Alibaba Cloud 
+Terraform module which creates Redis instance and other resources on Alibaba Cloud 
 
 These types of resources are supported:
 
