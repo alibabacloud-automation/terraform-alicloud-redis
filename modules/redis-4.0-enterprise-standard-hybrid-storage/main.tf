@@ -1,5 +1,4 @@
 provider "alicloud" {
-  version                 = ">=1.68.0"
   profile                 = var.profile != "" ? var.profile : null
   shared_credentials_file = var.shared_credentials_file != "" ? var.shared_credentials_file : null
   region                  = var.region != "" ? var.region : null
@@ -11,7 +10,6 @@ locals {
   engine_version = "4.0"
   edition_type   = "Enterprise"
   architecture   = "standard"
-  series_type    = "hybrid_storage"
 }
 
 data "alicloud_kvstore_instance_classes" "default" {
@@ -20,8 +18,6 @@ data "alicloud_kvstore_instance_classes" "default" {
   zone_id        = var.availability_zone
   edition_type   = local.edition_type
   architecture   = local.architecture
-  series_type    = local.series_type
-
 }
 module "redis" {
 
@@ -62,4 +58,18 @@ module "redis" {
 
   accounts       = var.accounts
   create_account = var.create_account
+
+  #############
+  # cms_alarm
+  #############
+  alarm_rule_name               = var.alarm_rule_name
+  alarm_rule_statistics         = var.alarm_rule_statistics
+  alarm_rule_period             = var.alarm_rule_period
+  alarm_rule_operator           = var.alarm_rule_operator
+  alarm_rule_threshold          = var.alarm_rule_threshold
+  alarm_rule_triggered_count    = var.alarm_rule_triggered_count
+  alarm_rule_contact_groups     = var.alarm_rule_contact_groups
+  enable_alarm_rule             = var.enable_alarm_rule
+  alarm_rule_silence_time       = var.alarm_rule_silence_time
+  alarm_rule_effective_interval = var.alarm_rule_effective_interval
 }

@@ -16,10 +16,10 @@ resource "alicloud_vswitch" "this" {
   name              = "redis_vpc"
   availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
   vpc_id            = data.alicloud_vpcs.default.vpcs.0.id
-  cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 10)
+  cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 15)
 }
 module "redis_example" {
-  source = "../../modules/redis-4.0-enterprise-cluster-hybrid-storage"
+  source = "../../modules/redis-2.8-communtity-cluster"
   region = var.region
 
   #################
@@ -47,7 +47,7 @@ module "redis_example" {
   #################
   # Redis account
   #################
-
+  create_account = false
   accounts = [
     {
       account_name      = "user1"
@@ -60,4 +60,15 @@ module "redis_example" {
       account_password = "plan222222"
     },
   ]
+
+  #############
+  # cms_alarm
+  #############
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
+  alarm_rule_threshold       = 35
+  alarm_rule_triggered_count = 2
+  alarm_rule_contact_groups  = ["AccCms"]
 }

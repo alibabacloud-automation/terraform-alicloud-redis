@@ -16,6 +16,7 @@ output "this_redis_instance_class" {
   description = "This redis instance class."
   value       = module.redis.this_redis_instance_class
 }
+
 output "this_redis_instance_availability_zone" {
   description = "The availability zone in which redis instance."
   value       = module.redis.this_redis_instance_availability_zone
@@ -30,10 +31,12 @@ output "this_redis_instance_period" {
   description = "The duration that you will buy DB instance."
   value       = module.redis.this_redis_instance_auto_renew_period
 }
+
 output "this_redis_instance_auto_renew" {
   description = "Whether to renewal a DB instance automatically or not."
   value       = module.redis.this_redis_instance_auto_renew
 }
+
 output "this_redis_instance_auto_renew_period" {
   description = "Auto-renewal period of an instance, in the unit of the month."
   value       = module.redis.this_redis_instance_auto_renew_period
@@ -43,6 +46,7 @@ output "this_redis_instance_type" {
   description = "This redis instance type."
   value       = module.redis.this_redis_instance_type
 }
+
 output "this_redis_instance_vswitch_id" {
   description = "The id of vswitch in which redis instance."
   value       = module.redis.this_redis_instance_vswitch_id
@@ -67,18 +71,22 @@ output "this_redis_instance_tags" {
   description = "A mapping of tags to assign to the redis instance resource."
   value       = module.redis.this_redis_instance_tags
 }
+
 output "this_redis_instance_security_ips" {
   description = "List of IP addresses allowed to access all redis of an instance."
   value       = module.redis.this_redis_instance_security_ips
 }
+
 output "this_redis_instance_vpc_auth_mode" {
   description = "Whether to renewal a DB instance automatically or not."
   value       = module.redis.this_redis_instance_vpc_auth_mode
 }
+
 output "this_redis_instance_maintain_start_time" {
   description = "The start time of the operation and maintenance time period of the instance."
   value       = module.redis.this_redis_instance_maintain_start_time
 }
+
 output "this_redis_instance_maintain_end_time" {
   description = "The end time of the operation and maintenance time period of the instance."
   value       = module.redis.this_redis_instance_maintain_end_time
@@ -105,4 +113,118 @@ output "this_redis_instance_backup_policy_backup_period" {
 output "this_redis_instance_backup_policy_backup_time" {
   description = "This Redis instance backup policy backup time."
   value       = module.redis.this_redis_instance_backup_policy_backup_time
+}
+
+############
+# cms alarm
+############
+
+output "this_alarm_rule_effective_interval" {
+  description = "The interval of effecting alarm rule. "
+  value       = module.redis.this_alarm_rule_effective_interval
+}
+
+output "this_alarm_rule_id" {
+  description = "The ID of the alarm rule. "
+  value       = module.redis.this_alarm_rule_id
+}
+
+output "this_alarm_rule_name" {
+  description = "The alarm name. "
+  value       = module.redis.this_alarm_rule_name
+}
+
+output "this_alarm_rule_project" {
+  description = "Monitor project name. "
+  value       = module.redis.this_alarm_rule_project
+}
+
+output "this_alarm_rule_metric" {
+  description = "Name of the monitoring metrics. "
+  value       = module.redis.this_alarm_rule_metric
+}
+
+output "this_alarm_rule_dimensions" {
+  description = "Map of the resources associated with the alarm rule. "
+  value       = module.redis.this_alarm_rule_dimensions
+}
+
+output "this_alarm_rule_period" {
+  description = "Index query cycle. "
+  value       = module.redis.this_alarm_rule_period
+}
+
+output "this_alarm_rule_statistics" {
+  description = "Statistical method. "
+  value       = module.redis.this_alarm_rule_statistics
+}
+
+output "this_alarm_rule_operator" {
+  description = "Alarm comparison operator. "
+  value       = module.redis.this_alarm_rule_operator
+}
+
+output "this_alarm_rule_threshold" {
+  description = "Alarm threshold value."
+  value       = module.redis.this_alarm_rule_threshold
+}
+
+output "this_alarm_rule_triggered_count" {
+  description = "Number of trigger alarm. "
+  value       = module.redis.this_alarm_rule_triggered_count
+}
+
+output "this_alarm_rule_contact_groups" {
+  description = "List contact groups of the alarm rule. "
+  value       = module.redis.this_alarm_rule_contact_groups
+}
+
+output "this_alarm_rule_silence_time" {
+  description = " Notification silence period in the alarm state. "
+  value       = module.redis.this_alarm_rule_silence_time
+}
+
+output "this_alarm_rule_notify_type" {
+  description = "Notification type. "
+  value       = module.redis.this_alarm_rule_notify_type
+}
+
+output "this_alarm_rule_enabled" {
+  description = "Whether to enable alarm rule. "
+  value       = module.redis.this_alarm_rule_enabled
+}
+
+output "this_alarm_rule_webhook" {
+  description = "The webhook that is called when the alarm is triggered. "
+  value       = module.redis.this_alarm_rule_webhook
+}
+
+output "this_alarm_rule_sharding_cpu_usage_status" {
+  description = "The current alarm sharding cpu usage rule status. "
+  value       = module.redis.this_alarm_rule_sharding_cpu_usage_status
+}
+
+output "this_alarm_rule_sharding_connection_usage_status" {
+  description = "The current alarm sharding connection usage rule status. "
+  value       = module.redis.this_alarm_rule_sharding_connection_usage_status
+}
+
+output "this_alarm_rule_sharding_max_rt_status" {
+  description = "The current alarm sharding max rt rule status. "
+  value       = module.redis.this_alarm_rule_sharding_max_rt_status
+}
+
+output "this_alarm_rule_sharding_memory_usage_status" {
+  description = "The current alarm sharding memory usage rule status. "
+  value       = module.redis.this_alarm_rule_sharding_memory_usage_status
+}
+
+output "this_alarm_rule_sharding_used_connection_status" {
+  description = "The current alarm sharding used connection rule status. "
+  value       = module.redis.this_alarm_rule_sharding_used_connection_status
+}
+
+output "this_alarm_rule_sharding_used_memory_status" {
+  description = "The current alarm sharding used memory rule status. "
+  value       = module.redis.this_alarm_rule_sharding_used_memory_status
 }
