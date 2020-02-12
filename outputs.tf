@@ -1,3 +1,15 @@
+data "alicloud_kvstore_instances" "this" {
+  ids = var.existing_instance_id != "" ? [var.existing_instance_id] : null
+}
+locals {
+  this_redis_instance_type              = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.instance_type, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_type, [""])[0]
+  this_redis_instance_charge_type       = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.charge_type, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_charge_type, [""])[0]
+  this_redis_instance_class             = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.instance_class, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_class, [""])[0]
+  this_redis_instance_name              = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.name, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_name, [""])[0]
+  this_redis_instance_availability_zone = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.availability_zone, [""])[0] : concat(alicloud_kvstore_instance.this.*.availability_zone, [""])[0]
+  this_redis_instance_vswitch_id        = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.vswitch_id, [""])[0] : concat(alicloud_kvstore_instance.this.*.vswitch_id, [""])[0]
+  this_redis_instance_private_ip        = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.private_ip, [""])[0] : concat(alicloud_kvstore_instance.this.*.private_ip, [""])[0]
+}
 #################
 # Redis Instance
 #################
@@ -9,31 +21,34 @@ output "this_redis_instance_id" {
 
 output "this_redis_instance_name" {
   description = "This redis instance name."
-  value       = concat(alicloud_kvstore_instance.this.*.instance_name, [""])[0]
+  value       = local.this_redis_instance_name
 }
 
 output "this_redis_instance_class" {
   description = "This redis instance class."
-  value       = concat(alicloud_kvstore_instance.this.*.instance_class, [""])[0]
+  value       = local.this_redis_instance_class
 }
+
 output "this_redis_instance_availability_zone" {
   description = "The availability zone in which redis instance."
-  value       = concat(alicloud_kvstore_instance.this.*.availability_zone, [""])[0]
+  value       = local.this_redis_instance_availability_zone
 }
 
 output "this_redis_instance_charge_type" {
   description = "This redis instance instance charge type."
-  value       = concat(alicloud_kvstore_instance.this.*.instance_charge_type, [""])[0]
+  value       = local.this_redis_instance_charge_type
 }
 
 output "this_redis_instance_period" {
   description = "The duration that you will buy DB instance."
   value       = concat(alicloud_kvstore_instance.this.*.period, [""])[0]
 }
+
 output "this_redis_instance_auto_renew" {
   description = "Whether to renewal a DB instance automatically or not."
   value       = concat(alicloud_kvstore_instance.this.*.auto_renew, [""])[0]
 }
+
 output "this_redis_instance_auto_renew_period" {
   description = "Auto-renewal period of an instance, in the unit of the month."
   value       = concat(alicloud_kvstore_instance.this.*.auto_renew_period, [""])[0]
@@ -41,11 +56,12 @@ output "this_redis_instance_auto_renew_period" {
 
 output "this_redis_instance_type" {
   description = "This redis instance type."
-  value       = concat(alicloud_kvstore_instance.this.*.instance_type, [""])[0]
+  value       = local.this_redis_instance_type
 }
+
 output "this_redis_instance_vswitch_id" {
   description = "The id of vswitch in which redis instance."
-  value       = concat(alicloud_kvstore_instance.this.*.vswitch_id, [""])[0]
+  value       = local.this_redis_instance_vswitch_id
 }
 
 output "this_redis_instance_engine_version" {
@@ -55,7 +71,7 @@ output "this_redis_instance_engine_version" {
 
 output "this_redis_instance_private_ip" {
   description = "Set the instance's private IP."
-  value       = concat(alicloud_kvstore_instance.this.*.private_ip, [""])[0]
+  value       = local.this_redis_instance_private_ip
 }
 
 output "this_redis_instance_backup_id" {
@@ -67,18 +83,22 @@ output "this_redis_instance_tags" {
   description = "A mapping of tags to assign to the redis instance resource."
   value       = alicloud_kvstore_instance.this.*.tags
 }
+
 output "this_redis_instance_security_ips" {
   description = "List of IP addresses allowed to access all redis of an instance."
   value       = alicloud_kvstore_instance.this.*.security_ips
 }
+
 output "this_redis_instance_vpc_auth_mode" {
   description = "Whether to renewal a DB instance automatically or not."
   value       = concat(alicloud_kvstore_instance.this.*.vpc_auth_mode, [""])[0]
 }
+
 output "this_redis_instance_maintain_start_time" {
   description = "The start time of the operation and maintenance time period of the instance."
   value       = concat(alicloud_kvstore_instance.this.*.maintain_start_time, [""])[0]
 }
+
 output "this_redis_instance_maintain_end_time" {
   description = "The end time of the operation and maintenance time period of the instance."
   value       = concat(alicloud_kvstore_instance.this.*.maintain_end_time, [""])[0]
@@ -104,4 +124,117 @@ output "this_redis_instance_backup_policy_backup_period" {
 output "this_redis_instance_backup_policy_backup_time" {
   description = "This Redis instance backup policy backup time."
   value       = concat(alicloud_kvstore_backup_policy.this.*.backup_time, [""])[0]
+}
+
+############
+# cms alarm
+############
+output "this_alarm_rule_effective_interval" {
+  description = "The interval of effecting alarm rule. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.effective_interval, [""])[0]
+}
+
+output "this_alarm_rule_id" {
+  description = "The ID of the alarm rule. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.id, [""])[0]
+}
+
+output "this_alarm_rule_name" {
+  description = "The alarm name. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.name, [""])[0]
+}
+
+output "this_alarm_rule_project" {
+  description = "Monitor project name. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.project, [""])[0]
+}
+
+output "this_alarm_rule_metric" {
+  description = "Name of the monitoring metrics. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.metric, [""])[0]
+}
+
+output "this_alarm_rule_dimensions" {
+  description = "Map of the resources associated with the alarm rule. "
+  value       = alicloud_cms_alarm.sharding_cpu_usage.*.dimensions
+}
+
+output "this_alarm_rule_period" {
+  description = "Index query cycle. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.period, [""])[0]
+}
+
+output "this_alarm_rule_statistics" {
+  description = "Statistical method. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.statistics, [""])[0]
+}
+
+output "this_alarm_rule_operator" {
+  description = "Alarm comparison operator. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.operator, [""])[0]
+}
+
+output "this_alarm_rule_threshold" {
+  description = "Alarm threshold value."
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.threshold, [""])[0]
+}
+
+output "this_alarm_rule_triggered_count" {
+  description = "Number of trigger alarm. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.triggered_count, [""])[0]
+}
+
+output "this_alarm_rule_contact_groups" {
+  description = "List contact groups of the alarm rule. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.contact_groups, [""])[0]
+}
+
+output "this_alarm_rule_silence_time" {
+  description = " Notification silence period in the alarm state. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.silence_time, [""])[0]
+}
+
+output "this_alarm_rule_notify_type" {
+  description = "Notification type. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.notify_type, [""])[0]
+}
+
+output "this_alarm_rule_enabled" {
+  description = "Whether to enable alarm rule. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.enabled, [""])[0]
+}
+
+output "this_alarm_rule_webhook" {
+  description = "The webhook that is called when the alarm is triggered. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.webhook, [""])[0]
+}
+
+output "this_alarm_rule_sharding_cpu_usage_status" {
+  description = "The current alarm sharding cpu usage rule status. "
+  value       = concat(alicloud_cms_alarm.sharding_cpu_usage.*.status, [""])[0]
+}
+
+output "this_alarm_rule_sharding_connection_usage_status" {
+  description = "The current alarm sharding connection usage rule status. "
+  value       = concat(alicloud_cms_alarm.sharding_connection_usage.*.status, [""])[0]
+}
+
+output "this_alarm_rule_sharding_max_rt_status" {
+  description = "The current alarm sharding max rt rule status. "
+  value       = concat(alicloud_cms_alarm.sharding_max_rt.*.status, [""])[0]
+}
+
+output "this_alarm_rule_sharding_memory_usage_status" {
+  description = "The current alarm sharding memory usage rule status. "
+  value       = concat(alicloud_cms_alarm.sharding_memory_usage.*.status, [""])[0]
+}
+
+output "this_alarm_rule_sharding_used_connection_status" {
+  description = "The current alarm sharding used connection rule status. "
+  value       = concat(alicloud_cms_alarm.sharding_used_connection.*.status, [""])[0]
+}
+
+output "this_alarm_rule_sharding_used_memory_status" {
+  description = "The current alarm sharding used memory rule status. "
+  value       = concat(alicloud_cms_alarm.sharding_used_memory.*.status, [""])[0]
 }

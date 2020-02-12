@@ -1,5 +1,9 @@
 ## 1.1.0 (Unreleased)
 
+IMPROVEMENTS:
+
+- Add alicloud_cms_alarm resource for redis instance,Create a new example to distinguish existing instance [GH-11](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/pull/11)
+
 ## 1.0.1 (January 10, 2020)
 
 IMPROVEMENTS:

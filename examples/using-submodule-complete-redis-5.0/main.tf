@@ -19,7 +19,7 @@ resource "alicloud_vswitch" "this" {
   cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 2)
 }
 module "redis_example" {
-  source = "../../modules/redis-2.8-communtity-cluster"
+  source = "../../modules/redis-5.0-communtity-cluster"
   region = var.region
 
   #################
@@ -27,7 +27,7 @@ module "redis_example" {
   #################
 
   instance_name     = "myInstance"
-  instance_class    = "redis.logic.sharding.2g.8db.0rodb.8proxy.default"
+  instance_class    = "redis.master.mid.default"
   period            = 1
   availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
   vswitch_id        = alicloud_vswitch.this.id
@@ -60,4 +60,14 @@ module "redis_example" {
       account_password = "plan222222"
     },
   ]
+  #############
+  # cms_alarm
+  #############
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
+  alarm_rule_threshold       = 35
+  alarm_rule_triggered_count = 2
+  alarm_rule_contact_groups  = ["AccCms"]
 }
