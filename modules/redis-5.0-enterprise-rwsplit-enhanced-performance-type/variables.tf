@@ -89,6 +89,24 @@ variable "alarm_rule_effective_interval" {
 #################
 # Redis instance
 #################
+variable "password" {
+  description = "The password of the redis instance."
+  type        = string
+  default     = ""
+}
+
+variable "kms_encrypted_password" {
+  description = "An KMS encrypts password used to an instance. It is conflicted with 'password'."
+  type        = string
+  default     = ""
+}
+
+variable "kms_encryption_context" {
+  description = "An KMS encryption context used to decrypt `kms_encrypted_password` before creating or updating an instance with 'kms_encrypted_password'."
+  type        = map(string)
+  default     = {}
+}
+
 variable "engine_version" {
   description = "Redis version. Value options can refer to the latest docs [CreateInstance](https://help.aliyun.com/document_detail/60862.html?spm=a2c4g.11186623.6.770.e0c735c10lvrqR) "
   default     = ""

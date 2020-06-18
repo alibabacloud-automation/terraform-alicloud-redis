@@ -29,6 +29,9 @@ module "redis" {
 
   instance_name        = var.instance_name
   instance_class       = var.instance_class != "" ? var.instance_class : data.alicloud_kvstore_instance_classes.default.instance_classes.0
+  password               = var.password
+  kms_encrypted_password = var.kms_encrypted_password
+  kms_encryption_context = var.kms_encryption_context
   security_ips         = var.security_ips
   availability_zone    = var.availability_zone
   instance_charge_type = var.instance_charge_type

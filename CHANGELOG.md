@@ -1,4 +1,10 @@
-## 1.2.0 (Unreleased)
+## 1.3.0 (Unreleased)
+## 1.2.0 (Jun 18, 2020)
+
+IMPROVEMENTS:
+
+- Supports the 'password' attribute. [GH-12](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/pull/12)
+
 ## 1.1.0 (February 12, 2020)
 
 IMPROVEMENTS:

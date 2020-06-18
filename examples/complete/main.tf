@@ -41,6 +41,7 @@ module "redis_example" {
   engine_version    = local.engine_version
   instance_name     = "myInstance"
   instance_class    = "redis.logic.sharding.2g.8db.0rodb.8proxy.default"
+  password          = "Yourpwd123456"
   period            = 1
   availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
   vswitch_id        = alicloud_vswitch.this.id
