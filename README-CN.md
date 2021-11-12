@@ -155,7 +155,7 @@ module "redis" {
 更多模板详见 [Modules](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules).
 
 ## 注意事项
-本Module从版本v1.9.0开始已经移除掉如下的 provider 的显示设置：
+本Module从版本v1.3.0开始已经移除掉如下的 provider 的显示设置：
 ```hcl
 provider "alicloud" {
   profile                 = var.profile != "" ? var.profile : null
@@ -164,30 +164,52 @@ provider "alicloud" {
 }
 ```
 
-如果你依然想在Module中使用这个 provider 配置，你可以在调用Module的时候，指定一个特定的版本，比如 1.8.0:
+如果你依然想在Module中使用这个 provider 配置，你可以在调用Module的时候，指定一个特定的版本，比如 1.2.0:
 
 ```hcl
 module "redis" {
-  source  = "alibaba/redis/alicloud"
-  version     = "1.8.0"
+  source = "terraform-alicloud-modules/redis/alicloud"
+  version     = "1.2.0"
   region      = "cn-hangzhou"
   profile     = "Your-Profile-Name"
-  create      = true
-  vpc_name    = "my-env-redis"
-  // ...
+
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
 }
 ```
-如果你想对正在使用中的Module升级到 1.9.0 或者更高的版本，那么你可以在模板中显示定义一个系统过Region的provider：
+如果你想对正在使用中的Module升级到 1.3.0 或者更高的版本，那么你可以在模板中显示定义一个相同Region的provider：
 ```hcl
 provider "alicloud" {
   region  = "cn-hangzhou"
   profile = "Your-Profile-Name"
 }
 module "redis" {
-  source  = "alibaba/redis/alicloud"
-  create            = true
-  vpc_name          = "my-env-redis"
-  // ...
+  source = "terraform-alicloud-modules/redis/alicloud"
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
+}
+```
+或者，如果你是多Region部署，你可以利用 `alias` 定义多个 provider，并在Module中显示指定这个provider：
+
+```hcl
+provider "alicloud" {
+  region  = "cn-hangzhou"
+  profile = "Your-Profile-Name"
+  alias   = "hz"
+}
+module "redis" {
+  source = "terraform-alicloud-modules/redis/alicloud"
+  providers = {
+    alicloud = alicloud.hz
+  }
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
 }
 ```
 
