@@ -159,7 +159,7 @@ This module provides rich sub-modules to support different Redis version and usa
 See [more modules](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/tree/master/modules).
 
 ## Notes
-From the version v1.9.0, the module has removed the following `provider` setting:
+From the version v1.3.0, the module has removed the following `provider` setting:
 
 ```hcl
 provider "alicloud" {
@@ -169,22 +169,23 @@ provider "alicloud" {
 }
 ```
 
-If you still want to use the `provider` setting to apply this module, you can specify a supported version, like 1.8.0:
+If you still want to use the `provider` setting to apply this module, you can specify a supported version, like 1.2.0:
 
 ```hcl
-module "vpc" {
-  source  = "alibaba/redis/alicloud"
-  version     = "1.8.0"
+module "redis" {
+  source = "terraform-alicloud-modules/redis/alicloud"
+  version     = "1.2.0"
   region      = "cn-hangzhou"
   profile     = "Your-Profile-Name"
-  
-  create            = true
-  vpc_name          = "my-env-redis"
-  // ...
+
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
 }
 ```
 
-If you want to upgrade the module to 1.9.0 or higher in-place, you can define a provider which same region with
+If you want to upgrade the module to 1.3.0 or higher in-place, you can define a provider which same region with
 previous region:
 
 ```hcl
@@ -193,10 +194,30 @@ provider "alicloud" {
    profile = "Your-Profile-Name"
 }
 module "redis" {
-  source  = "alibaba/redis/alicloud"
-  create            = true
-  vpc_name          = "my-env-redis"
-  // ...
+  source = "terraform-alicloud-modules/redis/alicloud"
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
+}
+```
+or specify an alias provider with a defined region to the module using `providers`:
+
+```hcl
+provider "alicloud" {
+  region  = "cn-hangzhou"
+  profile = "Your-Profile-Name"
+  alias   = "hz"
+}
+module "redis" {
+  source  = "terraform-alicloud-modules/redis/alicloud"
+  providers = {
+    alicloud = alicloud.hz
+  }
+  alarm_rule_name            = "CmsAlarmForRedis"
+  alarm_rule_statistics      = "Average"
+  alarm_rule_period          = 300
+  alarm_rule_operator        = "<="
 }
 ```
 
