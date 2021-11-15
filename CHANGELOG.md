@@ -1,4 +1,10 @@
-## 1.3.0 (Unreleased)
+## 1.4.0 (Unreleased)
+## 1.3.0 (November 15, 2021)
+
+IMPROVEMENTS:
+
+- Removes the provider setting and improves the Readme [GH-14](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/pull/14)
+
 ## 1.2.0 (Jun 18, 2020)
 
 IMPROVEMENTS:
