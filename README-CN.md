@@ -26,7 +26,6 @@ terraform-alicloud-redis
 ```hcl
 module "redis" {
   source               = "terraform-alicloud-modules/redis/alicloud"
-  region               = "cn-beijing"
   #################
   # Redis Instance
   #################
@@ -88,7 +87,6 @@ module "redis" {
 ```hcl
 module "redis" {
   source               = "terraform-alicloud-modules/redis/alicloud"
-  region               = "cn-beijing"
   #################
   # Redis Instance
   #################
