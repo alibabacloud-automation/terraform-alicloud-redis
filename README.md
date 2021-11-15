@@ -29,7 +29,6 @@ Be careful:Create Account supports redis instances of version 4.0 or above.
 ```hcl
 module "redis" {
   source               = "terraform-alicloud-modules/redis/alicloud"
-  region               = "cn-beijing"
   #################
   # Redis Instance
   #################
@@ -92,7 +91,6 @@ Be careful:Create Account supports redis instances of version 4.0 or above.
 ```hcl
 module "redis" {
   source               = "terraform-alicloud-modules/redis/alicloud"
-  region               = "cn-beijing"
   #################
   # Redis Instance
   #################
