@@ -13,23 +13,39 @@ locals {
 data "alicloud_vpcs" "default" {
   is_default = true
 }
+
+data "alicloud_vswitches" "default" {
+  zone_id = data.alicloud_zones.default.zones.0.multi_zone_ids.0
+  vpc_id =  length(data.alicloud_vpcs.default.ids) > 0 ? "${data.alicloud_vpcs.default.ids.0}" : alicloud_vpc.default.0.id
+}
+
+resource "alicloud_vpc" "default" {
+  count = length(data.alicloud_vpcs.default.ids) > 0 ? 0 : 1
+  cidr_block = "172.16.0.0/12"
+  vpc_name = "test_vpc_007"
+}
+
 data "alicloud_zones" "default" {
   available_resource_creation = "KVStore"
   multi                       = true
   enable_details              = true
 }
+
 data "alicloud_kvstore_instance_classes" "default" {
   zone_id        = data.alicloud_zones.default.zones.0.multi_zone_ids.0
   engine         = local.engine
   engine_version = local.engine_version
   architecture   = local.architecture
 }
+
 resource "alicloud_vswitch" "this" {
-  name              = "redis_vpc"
-  availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  vpc_id            = data.alicloud_vpcs.default.vpcs.0.id
-  cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 10)
+  count = length(data.alicloud_vswitches.default.ids) > 0 ? 0 : 1
+  vswitch_name              = "redis_vpc_007"
+  zone_id                   = data.alicloud_zones.default.zones.0.multi_zone_ids.0
+  vpc_id                    = length(data.alicloud_vpcs.default.ids) > 0 ?  data.alicloud_vpcs.default.vpcs.0.id : alicloud_vpc.default.0.id
+  cidr_block                = "172.16.0.0/24"
 }
+
 module "redis_example" {
   source = "../../"
   region = var.region
@@ -44,7 +60,7 @@ module "redis_example" {
   password          = "Yourpwd123456"
   period            = 1
   availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  vswitch_id        = alicloud_vswitch.this.id
+  vswitch_id        = length(data.alicloud_vswitches.default.ids) > 0 ? data.alicloud_vswitches.default.ids.0 : alicloud_vswitch.this.0.id
   security_ips      = ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
   tags = {
     Env      = "Private"
