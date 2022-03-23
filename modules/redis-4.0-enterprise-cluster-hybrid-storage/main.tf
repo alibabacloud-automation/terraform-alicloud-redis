@@ -22,24 +22,24 @@ module "redis" {
   # Redis Instance
   #################
 
-  instance_name        = var.instance_name
-  instance_class       = var.instance_class != "" ? var.instance_class : data.alicloud_kvstore_instance_classes.default.instance_classes.0
+  instance_name          = var.instance_name
+  instance_class         = var.instance_class != "" ? var.instance_class : data.alicloud_kvstore_instance_classes.default.instance_classes.0
   password               = var.password
   kms_encrypted_password = var.kms_encrypted_password
   kms_encryption_context = var.kms_encryption_context
-  security_ips         = var.security_ips
-  availability_zone    = var.availability_zone
-  instance_charge_type = var.instance_charge_type
-  period               = var.period
-  vswitch_id           = var.vswitch_id
-  auto_renew           = var.auto_renew
-  auto_renew_period    = var.auto_renew_period
-  private_ip           = var.private_ip
-  instance_backup_id   = var.instance_backup_id
-  tags                 = var.tags
-  vpc_auth_mode        = var.vpc_auth_mode
-  maintain_start_time  = var.maintain_start_time
-  maintain_end_time    = var.maintain_end_time
+  security_ips           = var.security_ips
+  availability_zone      = var.availability_zone
+  instance_charge_type   = var.instance_charge_type
+  period                 = var.period
+  vswitch_id             = var.vswitch_id
+  auto_renew             = var.auto_renew
+  auto_renew_period      = var.auto_renew_period
+  private_ip             = var.private_ip
+  instance_backup_id     = var.instance_backup_id
+  tags                   = var.tags
+  vpc_auth_mode          = var.vpc_auth_mode
+  maintain_start_time    = var.maintain_start_time
+  maintain_end_time      = var.maintain_end_time
 
   #################
   # Redis backup_policy

@@ -1,88 +1,89 @@
-variable "region" {
-  default = "cn-beijing"
-}
-provider "alicloud" {
-  region = var.region
-}
-locals {
-  engine         = "Redis"
-  engine_version = "4.0"
-  edition_type   = "Community"
-  architecture   = "cluster"
-}
-data "alicloud_vpcs" "default" {
-  is_default = true
-}
 data "alicloud_zones" "default" {
   available_resource_creation = "KVStore"
-  multi                       = true
-  enable_details              = true
 }
+
+data "alicloud_cms_alarm_contact_groups" "default" {
+}
+
 data "alicloud_kvstore_instance_classes" "default" {
-  zone_id        = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  engine         = local.engine
-  engine_version = local.engine_version
-  architecture   = local.architecture
+  engine         = "Redis"
+  engine_version = var.engine_version
+  zone_id        = data.alicloud_zones.default.zones.0.id
 }
-resource "alicloud_vswitch" "this" {
-  name              = "redis_vpc"
-  availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  vpc_id            = data.alicloud_vpcs.default.vpcs.0.id
-  cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 10)
+
+resource "alicloud_kms_key" "kms" {
+  key_usage              = "ENCRYPT/DECRYPT"
+  pending_window_in_days = var.pending_window_in_days
+  status                 = "Enabled"
 }
-module "redis_example" {
-  source = "../../"
-  region = var.region
 
-  #################
-  # Redis Instance
-  #################
-
-  engine_version    = local.engine_version
-  instance_name     = "myInstance"
-  instance_class    = "redis.logic.sharding.2g.8db.0rodb.8proxy.default"
-  password          = "Yourpwd123456"
-  period            = 1
-  availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  vswitch_id        = alicloud_vswitch.this.id
-  security_ips      = ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
-  tags = {
-    Env      = "Private"
-    Location = "Secret"
+resource "alicloud_kms_ciphertext" "kms" {
+  plaintext = "test"
+  key_id    = alicloud_kms_key.kms.id
+  encryption_context = {
+    test = "test"
   }
+}
 
-  #################
-  # Redis backup_policy
-  #################
+module "vpc" {
+  source             = "alibaba/vpc/alicloud"
+  create             = true
+  vpc_cidr           = "172.16.0.0/16"
+  vswitch_cidrs      = ["172.16.0.0/21"]
+  availability_zones = [data.alicloud_zones.default.zones.0.id]
+}
 
-  backup_policy_backup_time   = "02:00Z-03:00Z"
-  backup_policy_backup_period = ["Monday", "Wednesday", "Friday"]
+module "redis_example" {
+  source = "../.."
 
-  #################
-  # Redis account
-  #################
+  #alicloud_kvstore_instance
+  create_instance = true
+
+  engine_version         = var.engine_version
+  instance_name          = var.instance_name
+  instance_class         = data.alicloud_kvstore_instance_classes.default.instance_classes.0
+  availability_zone      = data.alicloud_zones.default.zones.0.id
+  vswitch_id             = module.vpc.this_vswitch_ids[0]
+  security_ips           = var.security_ips
+  instance_charge_type   = var.instance_charge_type
+  period                 = var.period
+  auto_renew             = var.auto_renew
+  auto_renew_period      = var.auto_renew_period
+  private_ip             = "172.16.0.10"
+  vpc_auth_mode          = var.vpc_auth_mode
+  password               = var.password
+  kms_encrypted_password = var.kms_encrypted_password
+  kms_encryption_context = alicloud_kms_ciphertext.kms.encryption_context
+  maintain_start_time    = var.maintain_start_time
+  maintain_end_time      = var.maintain_end_time
+  tags                   = var.tags
+
+  #alicloud_kvstore_backup_policy
+  backup_policy_backup_period = var.backup_policy_backup_period
+  backup_policy_backup_time   = var.backup_policy_backup_time
+
+  #accounts
+  create_account = true
 
   accounts = [
     {
-      account_name      = "user1"
-      account_password  = "plan111111"
-      account_privilege = "RoleReadOnly"
+      account_name      = "tf_account_name"
+      account_password  = "YourPassword123!"
       account_type      = "Normal"
-    },
-    {
-      account_name     = "user2"
-      account_password = "plan222222"
-    },
+      account_privilege = var.account_privilege
+    }
   ]
 
-  #############
-  # cms_alarm
-  #############
-  alarm_rule_name            = "CmsAlarmForRedis"
-  alarm_rule_statistics      = "Average"
-  alarm_rule_period          = 300
-  alarm_rule_operator        = "<="
-  alarm_rule_threshold       = 35
-  alarm_rule_triggered_count = 2
-  alarm_rule_contact_groups  = ["AccCms"]
+  #alicloud_cms_alarm
+  enable_alarm_rule             = var.enable_alarm_rule
+  alarm_rule_name               = var.alarm_rule_name
+  alarm_rule_statistics         = var.alarm_rule_statistics
+  alarm_rule_operator           = var.alarm_rule_operator
+  alarm_rule_threshold          = var.alarm_rule_threshold
+  alarm_rule_triggered_count    = var.alarm_rule_triggered_count
+  alarm_rule_period             = var.alarm_rule_period
+  alarm_rule_contact_groups     = data.alicloud_cms_alarm_contact_groups.default.names
+  alarm_rule_silence_time       = var.alarm_rule_silence_time
+  alarm_rule_effective_interval = var.alarm_rule_effective_interval
+
 }
