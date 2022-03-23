@@ -1,6 +1,7 @@
 data "alicloud_kvstore_instances" "this" {
   ids = var.existing_instance_id != "" ? [var.existing_instance_id] : null
 }
+
 locals {
   this_redis_instance_type              = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.instance_type, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_type, [""])[0]
   this_redis_instance_charge_type       = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.charge_type, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_charge_type, [""])[0]
@@ -10,10 +11,10 @@ locals {
   this_redis_instance_vswitch_id        = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.vswitch_id, [""])[0] : concat(alicloud_kvstore_instance.this.*.vswitch_id, [""])[0]
   this_redis_instance_private_ip        = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.private_ip, [""])[0] : concat(alicloud_kvstore_instance.this.*.private_ip, [""])[0]
 }
+
 #################
 # Redis Instance
 #################
-
 output "this_redis_instance_id" {
   description = "This redis instance id."
   value       = local.this_instance_id
@@ -103,10 +104,10 @@ output "this_redis_instance_maintain_end_time" {
   description = "The end time of the operation and maintenance time period of the instance."
   value       = concat(alicloud_kvstore_instance.this.*.maintain_end_time, [""])[0]
 }
+
 #################
 # Redis Account
 #################
-
 output "this_redis_instance_account_name" {
   description = "This Redis instance account name."
   value       = module.accounts.this_redis_instance_account_name
@@ -115,7 +116,6 @@ output "this_redis_instance_account_name" {
 ################
 #Backup policy
 ################
-
 output "this_redis_instance_backup_policy_backup_period" {
   description = "This Redis instance backup policy backup period."
   value       = alicloud_kvstore_backup_policy.this.*.backup_period

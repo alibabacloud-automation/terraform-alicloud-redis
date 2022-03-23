@@ -1,7 +1,6 @@
 #################
 # Redis Instance
 #################
-
 output "this_redis_instance_id" {
   description = "This redis instance id."
   value       = module.redis_example.this_redis_instance_id
@@ -95,7 +94,6 @@ output "this_redis_instance_maintain_end_time" {
 #################
 # Redis Account
 #################
-
 output "this_redis_instance_account_name" {
   description = "This Redis instance account name."
   value       = module.redis_example.this_redis_instance_account_name
@@ -104,7 +102,6 @@ output "this_redis_instance_account_name" {
 ########################
 # Redis backup policy
 ########################
-
 output "this_redis_instance_backup_policy_backup_period" {
   description = "This Redis instance backup policy backup period."
   value       = module.redis_example.this_redis_instance_backup_policy_backup_period
@@ -114,10 +111,10 @@ output "this_redis_instance_backup_policy_backup_time" {
   description = "This Redis instance backup policy backup time."
   value       = module.redis_example.this_redis_instance_backup_policy_backup_time
 }
+
 ############
 # cms alarm
 ############
-
 output "this_alarm_rule_effective_interval" {
   description = "The interval of effecting alarm rule. "
   value       = module.redis_example.this_alarm_rule_effective_interval
