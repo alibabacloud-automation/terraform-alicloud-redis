@@ -4,20 +4,29 @@ variable "region" {
 provider "alicloud" {
   region = var.region
 }
-data "alicloud_vpcs" "default" {
-  is_default = true
+
+resource "random_uuid" "default" {
 }
+locals {
+  name = substr("tf-example-${replace(random_uuid.default.result, "-", "")}", 0, 16)
+}
+
 data "alicloud_zones" "default" {
   available_resource_creation = "KVStore"
-  multi                       = true
-  enable_details              = true
 }
-resource "alicloud_vswitch" "this" {
-  name              = "redis_vpc"
-  availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  vpc_id            = data.alicloud_vpcs.default.vpcs.0.id
-  cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 10)
+
+resource "alicloud_vpc" "default" {
+  vpc_name   = local.name
+  cidr_block = "10.4.0.0/16"
 }
+
+resource "alicloud_vswitch" "default" {
+  vswitch_name = local.name
+  cidr_block   = "10.4.0.0/24"
+  vpc_id       = alicloud_vpc.default.id
+  zone_id      = data.alicloud_zones.default.zones.0.id
+}
+
 module "redis_example" {
   source = "../../modules/redis-4.0-enterprise-cluster-hybrid-storage"
   region = var.region
@@ -26,11 +35,11 @@ module "redis_example" {
   # Redis Instance
   #################
 
-  instance_name     = "myInstance"
+  instance_name     = local.name
   instance_class    = "redis.logic.sharding.2g.8db.0rodb.8proxy.default"
   period            = 1
-  availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  vswitch_id        = alicloud_vswitch.this.id
+  availability_zone = data.alicloud_zones.default.zones.0.id
+  vswitch_id        = alicloud_vswitch.default.id
   security_ips      = ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
   tags = {
     Env      = "Private"

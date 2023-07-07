@@ -1,4 +1,11 @@
-## 1.4.0 (Unreleased)
+## 1.5.0 (Unreleased)
+
+## 1.4.0 (July 26, 2023)
+
+IMPROVEMENTS:
+
+- Improves the module example [GH-18](https://github.com/terraform-alicloud-modules/terraform-alicloud-redis/pull/18)
+
 ## 1.3.0 (November 15, 2021)
 
 IMPROVEMENTS:
