@@ -44,15 +44,12 @@ module "accounts" {
 }
 
 resource "alicloud_cms_alarm" "sharding_cpu_usage" {
-  count   = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
-  enabled = var.enable_alarm_rule
-  name    = var.alarm_rule_name
-  project = local.project
-  metric  = "ShardingCpuUsage"
-  dimensions = {
-    instanceId = local.this_instance_id
-    device     = "/dev/vda1,/dev/vdb1"
-  }
+  count             = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
+  enabled           = var.enable_alarm_rule
+  name              = var.alarm_rule_name
+  project           = local.project
+  metric            = "ShardingCpuUsage"
+  metric_dimensions = "[{\"instanceId\":\"${local.this_instance_id}\",\"device\":\"/dev/vda1\"}]"
   escalations_critical {
     statistics          = var.alarm_rule_statistics
     comparison_operator = var.alarm_rule_operator
@@ -66,15 +63,12 @@ resource "alicloud_cms_alarm" "sharding_cpu_usage" {
 }
 
 resource "alicloud_cms_alarm" "sharding_connection_usage" {
-  count   = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
-  enabled = var.enable_alarm_rule
-  name    = var.alarm_rule_name
-  project = local.project
-  metric  = "ShardingConnectionUsage"
-  dimensions = {
-    instanceId = local.this_instance_id
-    device     = "/dev/vda1,/dev/vdb1"
-  }
+  count             = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
+  enabled           = var.enable_alarm_rule
+  name              = var.alarm_rule_name
+  project           = local.project
+  metric            = "ShardingConnectionUsage"
+  metric_dimensions = "[{\"instanceId\":\"${local.this_instance_id}\",\"device\":\"/dev/vda1\"}]"
   escalations_critical {
     statistics          = var.alarm_rule_statistics
     comparison_operator = var.alarm_rule_operator
@@ -88,15 +82,12 @@ resource "alicloud_cms_alarm" "sharding_connection_usage" {
 }
 
 resource "alicloud_cms_alarm" "sharding_max_rt" {
-  count   = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
-  enabled = var.enable_alarm_rule
-  name    = var.alarm_rule_name
-  project = local.project
-  metric  = "ShardingMaxRt"
-  dimensions = {
-    instanceId = local.this_instance_id
-    device     = "/dev/vda1,/dev/vdb1"
-  }
+  count             = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
+  enabled           = var.enable_alarm_rule
+  name              = var.alarm_rule_name
+  project           = local.project
+  metric            = "ShardingMaxRt"
+  metric_dimensions = "[{\"instanceId\":\"${local.this_instance_id}\",\"device\":\"/dev/vda1\"}]"
   escalations_critical {
     statistics          = var.alarm_rule_statistics
     comparison_operator = var.alarm_rule_operator
@@ -110,15 +101,12 @@ resource "alicloud_cms_alarm" "sharding_max_rt" {
 }
 
 resource "alicloud_cms_alarm" "sharding_memory_usage" {
-  count   = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
-  enabled = var.enable_alarm_rule
-  name    = var.alarm_rule_name
-  project = local.project
-  metric  = "ShardingMemoryUsage"
-  dimensions = {
-    instanceId = local.this_instance_id
-    device     = "/dev/vda1,/dev/vdb1"
-  }
+  count             = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
+  enabled           = var.enable_alarm_rule
+  name              = var.alarm_rule_name
+  project           = local.project
+  metric            = "ShardingMemoryUsage"
+  metric_dimensions = "[{\"instanceId\":\"${local.this_instance_id}\",\"device\":\"/dev/vda1\"}]"
   escalations_critical {
     statistics          = var.alarm_rule_statistics
     comparison_operator = var.alarm_rule_operator
@@ -132,15 +120,12 @@ resource "alicloud_cms_alarm" "sharding_memory_usage" {
 }
 
 resource "alicloud_cms_alarm" "sharding_used_connection" {
-  count   = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
-  enabled = var.enable_alarm_rule
-  name    = var.alarm_rule_name
-  project = local.project
-  metric  = "ShardingUsedConnection"
-  dimensions = {
-    instanceId = local.this_instance_id
-    device     = "/dev/vda1,/dev/vdb1"
-  }
+  count             = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
+  enabled           = var.enable_alarm_rule
+  name              = var.alarm_rule_name
+  project           = local.project
+  metric            = "ShardingUsedConnection"
+  metric_dimensions = "[{\"instanceId\":\"${local.this_instance_id}\",\"device\":\"/dev/vda1\"}]"
   escalations_critical {
     statistics          = var.alarm_rule_statistics
     comparison_operator = var.alarm_rule_operator
@@ -154,15 +139,12 @@ resource "alicloud_cms_alarm" "sharding_used_connection" {
 }
 
 resource "alicloud_cms_alarm" "sharding_used_memory" {
-  count   = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
-  enabled = var.enable_alarm_rule
-  name    = var.alarm_rule_name
-  project = local.project
-  metric  = "ShardingUsedMemory"
-  dimensions = {
-    instanceId = local.this_instance_id
-    device     = "/dev/vda1,/dev/vdb1"
-  }
+  count             = local.create_more_resources && var.enable_alarm_rule ? 1 : 0
+  enabled           = var.enable_alarm_rule
+  name              = var.alarm_rule_name
+  project           = local.project
+  metric            = "ShardingUsedMemory"
+  metric_dimensions = "[{\"instanceId\":\"${local.this_instance_id}\",\"device\":\"/dev/vda1\"}]"
   escalations_critical {
     statistics          = var.alarm_rule_statistics
     comparison_operator = var.alarm_rule_operator
