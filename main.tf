@@ -7,11 +7,13 @@ locals {
 
 resource "alicloud_kvstore_instance" "this" {
   count                  = var.create_instance ? 1 : 0
+  ssl_enable             = var.ssl_enable
   instance_type          = "Redis"
   engine_version         = var.engine_version
   db_instance_name       = var.instance_name
   instance_class         = var.instance_class
   zone_id                = var.availability_zone
+  secondary_zone_id      = var.secondary_zone_id
   vswitch_id             = var.vswitch_id
   security_ips           = var.security_ips
   payment_type           = var.instance_charge_type

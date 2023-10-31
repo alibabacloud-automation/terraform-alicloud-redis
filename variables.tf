@@ -58,6 +58,18 @@ variable "availability_zone" {
   default     = ""
 }
 
+variable "secondary_zone_id" {
+  description = "The ID of the secondary zone to which you want to migrate the ApsaraDB for Redis instance. If you specify this parameter, the master node and replica node of the instance can be deployed in different zones and disaster recovery is implemented across zones. The instance can withstand failures in data centers."
+  type        = string
+  default     = ""
+}
+
+variable "ssl_enable" {
+  description = "Modifies the SSL status. Valid values: `Disable`, `Enable` and `Update`."
+  type        = string
+  default     = ""
+}
+
 variable "vswitch_id" {
   description = "The vswitch id used to launch one or more instances."
   type        = string

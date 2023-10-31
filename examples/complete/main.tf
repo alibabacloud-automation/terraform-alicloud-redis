@@ -43,6 +43,8 @@ module "redis_example" {
   instance_name          = var.instance_name
   instance_class         = data.alicloud_kvstore_instance_classes.default.instance_classes.0
   availability_zone      = data.alicloud_zones.default.zones.0.id
+  secondary_zone_id      = data.alicloud_zones.default.zones.1.id
+  ssl_enable             = "Enable"
   vswitch_id             = module.vpc.this_vswitch_ids[0]
   security_ips           = var.security_ips
   instance_charge_type   = var.instance_charge_type
