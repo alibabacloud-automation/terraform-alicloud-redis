@@ -1,4 +1,9 @@
-## 1.5.0 (Unreleased)
+## 1.6.0 (Unreleased)
+## 1.5.0 (October 31, 2023)
+
+IMPROVEMENTS:
+
+- kvstore_instance supports the 'ssl_enable', 'secondary_zone_id' attributes. [GH-19](https://github.com/alibabacloud-automation/terraform-alicloud-redis/pull/19)
 
 ## 1.4.0 (July 26, 2023)
 
