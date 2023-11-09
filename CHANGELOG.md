@@ -1,4 +1,10 @@
-## 1.6.0 (Unreleased)
+## 1.7.0 (Unreleased)
+## 1.6.0 (November 09, 2023)
+
+IMPROVEMENTS:
+
+- kvstore_instance supports the 'security_group_id' attribute. [GH-20](https://github.com/alibabacloud-automation/terraform-alicloud-redis/pull/20)
+  
 ## 1.5.0 (October 31, 2023)
 
 IMPROVEMENTS:
