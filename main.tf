@@ -14,6 +14,7 @@ resource "alicloud_kvstore_instance" "this" {
   instance_class         = var.instance_class
   zone_id                = var.availability_zone
   secondary_zone_id      = var.secondary_zone_id
+  security_group_id      = var.security_group_id
   vswitch_id             = var.vswitch_id
   security_ips           = var.security_ips
   payment_type           = var.instance_charge_type
