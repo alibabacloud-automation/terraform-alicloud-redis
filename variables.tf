@@ -70,6 +70,12 @@ variable "ssl_enable" {
   default     = ""
 }
 
+variable "security_group_id" {
+  description = "The ID of security groups. Note: you can set only one security group. When this field is changed, the old security group will be replaced."
+  type        = string
+  default     = ""
+}
+
 variable "vswitch_id" {
   description = "The vswitch id used to launch one or more instances."
   type        = string

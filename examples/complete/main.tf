@@ -33,6 +33,12 @@ module "vpc" {
   availability_zones = [data.alicloud_zones.default.zones.0.id]
 }
 
+resource "alicloud_security_group" "default" {
+  inner_access_policy = "Accept"
+  name                = "tf-example"
+  vpc_id              = module.vpc.this_vpc_id
+}
+
 module "redis_example" {
   source = "../.."
 
@@ -47,6 +53,7 @@ module "redis_example" {
   ssl_enable             = "Enable"
   vswitch_id             = module.vpc.this_vswitch_ids[0]
   security_ips           = var.security_ips
+  security_group_id      = alicloud_security_group.default.id
   instance_charge_type   = var.instance_charge_type
   period                 = var.period
   auto_renew             = var.auto_renew
