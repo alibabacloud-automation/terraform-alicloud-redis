@@ -45,27 +45,28 @@ module "redis_example" {
   #alicloud_kvstore_instance
   create_instance = true
 
-  engine_version         = var.engine_version
-  instance_name          = var.instance_name
-  instance_class         = data.alicloud_kvstore_instance_classes.default.instance_classes.0
-  availability_zone      = data.alicloud_zones.default.zones.0.id
-  secondary_zone_id      = data.alicloud_zones.default.zones.1.id
-  ssl_enable             = "Enable"
-  vswitch_id             = module.vpc.this_vswitch_ids[0]
-  security_ips           = var.security_ips
-  security_group_id      = alicloud_security_group.default.id
-  instance_charge_type   = var.instance_charge_type
-  period                 = var.period
-  auto_renew             = var.auto_renew
-  auto_renew_period      = var.auto_renew_period
-  private_ip             = "172.16.0.10"
-  vpc_auth_mode          = var.vpc_auth_mode
-  password               = var.password
-  kms_encrypted_password = var.kms_encrypted_password
-  kms_encryption_context = alicloud_kms_ciphertext.kms.encryption_context
-  maintain_start_time    = var.maintain_start_time
-  maintain_end_time      = var.maintain_end_time
-  tags                   = var.tags
+  engine_version              = var.engine_version
+  instance_name               = var.instance_name
+  instance_class              = data.alicloud_kvstore_instance_classes.default.instance_classes.0
+  availability_zone           = data.alicloud_zones.default.zones.0.id
+  secondary_zone_id           = data.alicloud_zones.default.zones.1.id
+  ssl_enable                  = "Enable"
+  vswitch_id                  = module.vpc.this_vswitch_ids[0]
+  security_ips                = var.security_ips
+  security_group_id           = alicloud_security_group.default.id
+  instance_charge_type        = var.instance_charge_type
+  instance_release_protection = false
+  period                      = var.period
+  auto_renew                  = var.auto_renew
+  auto_renew_period           = var.auto_renew_period
+  private_ip                  = "172.16.0.10"
+  vpc_auth_mode               = var.vpc_auth_mode
+  password                    = var.password
+  kms_encrypted_password      = var.kms_encrypted_password
+  kms_encryption_context      = alicloud_kms_ciphertext.kms.encryption_context
+  maintain_start_time         = var.maintain_start_time
+  maintain_end_time           = var.maintain_end_time
+  tags                        = var.tags
 
   #alicloud_kvstore_backup_policy
   backup_policy_backup_period = var.backup_policy_backup_period

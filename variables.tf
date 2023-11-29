@@ -76,6 +76,12 @@ variable "security_group_id" {
   default     = ""
 }
 
+variable "instance_release_protection" {
+  description = "Whether to open the release protection."
+  type        = bool
+  default     = false
+}
+
 variable "vswitch_id" {
   description = "The vswitch id used to launch one or more instances."
   type        = string

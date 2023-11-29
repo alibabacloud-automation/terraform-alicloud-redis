@@ -6,30 +6,31 @@ locals {
 }
 
 resource "alicloud_kvstore_instance" "this" {
-  count                  = var.create_instance ? 1 : 0
-  ssl_enable             = var.ssl_enable
-  instance_type          = "Redis"
-  engine_version         = var.engine_version
-  db_instance_name       = var.instance_name
-  instance_class         = var.instance_class
-  zone_id                = var.availability_zone
-  secondary_zone_id      = var.secondary_zone_id
-  security_group_id      = var.security_group_id
-  vswitch_id             = var.vswitch_id
-  security_ips           = var.security_ips
-  payment_type           = var.instance_charge_type
-  period                 = var.period
-  auto_renew             = var.auto_renew
-  auto_renew_period      = var.auto_renew_period
-  private_ip             = var.private_ip
-  backup_id              = var.instance_backup_id
-  vpc_auth_mode          = var.vpc_auth_mode
-  password               = var.password
-  kms_encrypted_password = var.kms_encrypted_password
-  kms_encryption_context = var.kms_encryption_context
-  maintain_start_time    = var.maintain_start_time
-  maintain_end_time      = var.maintain_end_time
-  tags                   = var.tags
+  count                       = var.create_instance ? 1 : 0
+  ssl_enable                  = var.ssl_enable
+  instance_type               = "Redis"
+  engine_version              = var.engine_version
+  db_instance_name            = var.instance_name
+  instance_class              = var.instance_class
+  zone_id                     = var.availability_zone
+  secondary_zone_id           = var.secondary_zone_id
+  security_group_id           = var.security_group_id
+  instance_release_protection = var.instance_release_protection
+  vswitch_id                  = var.vswitch_id
+  security_ips                = var.security_ips
+  payment_type                = var.instance_charge_type
+  period                      = var.period
+  auto_renew                  = var.auto_renew
+  auto_renew_period           = var.auto_renew_period
+  private_ip                  = var.private_ip
+  backup_id                   = var.instance_backup_id
+  vpc_auth_mode               = var.vpc_auth_mode
+  password                    = var.password
+  kms_encrypted_password      = var.kms_encrypted_password
+  kms_encryption_context      = var.kms_encryption_context
+  maintain_start_time         = var.maintain_start_time
+  maintain_end_time           = var.maintain_end_time
+  tags                        = var.tags
 }
 
 resource "alicloud_kvstore_backup_policy" "this" {
