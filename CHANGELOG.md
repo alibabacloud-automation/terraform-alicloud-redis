@@ -1,4 +1,10 @@
-## 1.7.0 (Unreleased)
+## 1.8.0 (Unreleased)
+## 1.7.0 (November 30, 2023)
+
+IMPROVEMENTS:
+
+- add new attribute instance_release_protection. [GH-21](https://github.com/alibabacloud-automation/terraform-alicloud-redis/pull/21)
+
 ## 1.6.0 (November 09, 2023)
 
 IMPROVEMENTS:
