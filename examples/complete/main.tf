@@ -35,7 +35,7 @@ module "vpc" {
 
 resource "alicloud_security_group" "default" {
   inner_access_policy = "Accept"
-  name                = "tf-example"
+  name                = var.instance_name
   vpc_id              = module.vpc.this_vpc_id
 }
 
@@ -66,6 +66,7 @@ module "redis_example" {
   kms_encryption_context      = alicloud_kms_ciphertext.kms.encryption_context
   maintain_start_time         = var.maintain_start_time
   maintain_end_time           = var.maintain_end_time
+  config                      = var.config
   tags                        = var.tags
 
   #alicloud_kvstore_backup_policy
@@ -95,5 +96,4 @@ module "redis_example" {
   alarm_rule_contact_groups     = data.alicloud_cms_alarm_contact_groups.default.names
   alarm_rule_silence_time       = var.alarm_rule_silence_time
   alarm_rule_effective_interval = var.alarm_rule_effective_interval
-
 }

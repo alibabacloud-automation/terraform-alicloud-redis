@@ -71,7 +71,7 @@ variable "ssl_enable" {
 }
 
 variable "security_group_id" {
-  description = "The ID of security groups. Note: you can set only one security group. When this field is changed, the old security group will be replaced."
+  description = "The ID of security groups. You can specify up to 10 security_group_id. Separate multiple security group IDs with commas (,), such as sg-***,sg-***,sg-***."
   type        = string
   default     = ""
 }
@@ -164,6 +164,12 @@ variable "maintain_end_time" {
   description = "The end time of the operation and maintenance time period of the instance, in the format of HH:mmZ (UTC time)."
   type        = string
   default     = "03:00Z"
+}
+
+variable "config" {
+  description = "The configuration of the KVStore DBInstance."
+  type        = map(string)
+  default     = {}
 }
 
 variable "tags" {
