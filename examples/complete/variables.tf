@@ -80,6 +80,16 @@ variable "maintain_end_time" {
   default     = "03:00Z"
 }
 
+variable "config" {
+  description = "The configuration of the KVStore DBInstance."
+  type        = map(string)
+  default = {
+    appendonly             = "yes"
+    lazyfree-lazy-eviction = "yes"
+    maxmemory-policy       = "volatile-lru"
+  }
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the redis instance resource."
   type        = map(string)

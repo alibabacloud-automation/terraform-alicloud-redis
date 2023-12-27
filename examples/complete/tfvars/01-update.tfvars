@@ -13,6 +13,11 @@ password               = "YourPassword123!update"
 kms_encrypted_password = "YourPassword123!update"
 maintain_start_time    = "01:00Z"
 maintain_end_time      = "02:00Z"
+config = {
+  appendonly             = "no"
+  lazyfree-lazy-eviction = "no"
+  maxmemory-policy       = "volatile-lru"
+}
 tags = {
   Name = "updateREDIS"
 }
