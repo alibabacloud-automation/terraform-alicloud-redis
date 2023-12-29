@@ -1,4 +1,10 @@
-## 1.8.0 (Unreleased)
+## 1.9.0 (Unreleased)
+## 1.8.0 (December 29, 2023)
+
+IMPROVEMENTS:
+
+- kvstore_instance supports the config attribute [GH-22](https://github.com/alibabacloud-automation/terraform-alicloud-redis/pull/22)
+
 ## 1.7.0 (November 30, 2023)
 
 IMPROVEMENTS:
