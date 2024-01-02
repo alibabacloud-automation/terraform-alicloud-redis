@@ -30,7 +30,7 @@ resource "alicloud_kvstore_instance" "this" {
   kms_encryption_context      = var.kms_encryption_context
   maintain_start_time         = var.maintain_start_time
   maintain_end_time           = var.maintain_end_time
-  config                      = var.config
+  config                      = length(var.config) > 0 ? var.config : null
   tags                        = var.tags
 }
 
