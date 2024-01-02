@@ -1,4 +1,10 @@
 ## 1.9.0 (Unreleased)
+## 1.8.1 (January 02, 2024)
+
+BUG FIXES:
+
+- fix config empty value [GH-23](https://github.com/alibabacloud-automation/terraform-alicloud-redis/pull/23)
+
 ## 1.8.0 (December 29, 2023)
 
 IMPROVEMENTS:
