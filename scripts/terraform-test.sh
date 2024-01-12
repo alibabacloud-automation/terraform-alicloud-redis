@@ -1,39 +1,60 @@
 #!/usr/bin/env sh
 
-planFile=${1}"/scripts/plan.tftest.hcl"
-applyFile=${1}"/scripts/apply.tftest.hcl"
-
-terraformVersionFile=${1}"/tfversion.md"
+terraformVersionFile="tfversion.md"
 echo "" > $terraformVersionFile
 version=""
 
-f=${2}
+f=${1}
 success=true
-echo $f
+# echo $f
 echo ""
 echo "====> Terraform testing in" $f
-./terraform -chdir=$f init -upgrade
-echo ""
-echo "----> Plan Testing"
-cp $planFile $f/
-./terraform -chdir=$f test test -verbose
+terraform -chdir=$f init -upgrade >/dev/null
 if [[ $? -ne 0 ]]; then
-    success=false
-    echo -e "\033[31m[ERROR]\033[0m: running terraform test for plan failed."
+  success=false
+  echo -e "\033[31m[ERROR]\033[0m: running terraform init failed."
 else
+  echo ""
+  echo "----> Plan Testing"
+  terraform -chdir=$f plan >/dev/null
+  if [[ $? -ne 0 ]]; then
+    success=false
+    echo -e "\033[31m[ERROR]\033[0m: running terraform plan failed."
+  else
+    echo -e "\033[32m - plan check: success\033[0m"
     echo ""
     echo "----> Apply Testing"
-    rm -rf $f/plan.tftest.hcl
-    cp $applyFile $f/
-    ./terraform -chdir=$f test test
+    terraform -chdir=$f apply -auto-approve >/dev/null
     if [[ $? -ne 0 ]]; then
         success=false
-        echo -e "\033[31m[ERROR]\033[0m: running terraform test for apply failed."
+        echo -e "\033[31m[ERROR]\033[0m: running terraform apply failed."
+    else
+        echo -e "\033[32m - apply check: success\033[0m"
+        echo ""
+        echo -e " ----> Apply Diff Checking\n"
+        terraform -chdir=$f plan -detailed-exitcode
+        if [[ $? -ne 0 ]]; then
+          success=false
+          echo -e "\033[31m[ERROR]\033[0m: running terraform plan for checking diff failed."
+        else
+          echo -e "\033[32m - apply diff check: success\033[0m"
+        fi
     fi
-        rm -rf $f/apply.tftest.hcl
+    echo ""
+    echo " ----> Destroying"
+    terraform -chdir=$f destroy -auto-approve >/dev/null 
+    if [[ $? -ne 0 ]]; then
+      success=false
+      echo -e "\033[31m[ERROR]\033[0m: running terraform destroy failed."
+    else
+      echo -e "\033[32m - destroy: success\033[0m"
+    fi
+  fi
+  rm -rf $f/.terraform
+  rm -rf $f/.terraform.lock.hcl
 fi
 
-version=$(./terraform -chdir=$f version)
+version=$(terraform -chdir=$f version)
 row=`echo -e "$version" | sed -n '/^$/='`
 if [ -n "$row" ]; then
     version=`echo -e "$version" | sed -n "1,${row}p"`
