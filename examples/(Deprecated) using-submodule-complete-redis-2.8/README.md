@@ -1,5 +1,7 @@
 # Complete RDS example for Redis
 
+This example is deprecated because [Redis 2.8 instances are phased out](https://www.alibabacloud.com/help/en/redis/product-overview/apsaradb-for-redis-2-8-instances-are-phased-out)
+
 ## Usage
 
 To run this example you need to execute:
