@@ -13,10 +13,10 @@ data "alicloud_zones" "default" {
   enable_details              = true
 }
 resource "alicloud_vswitch" "this" {
-  name              = "redis_vpc"
-  availability_zone = data.alicloud_zones.default.zones.0.multi_zone_ids.0
-  vpc_id            = data.alicloud_vpcs.default.vpcs.0.id
-  cidr_block        = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 15)
+  vswitch_name = "redis_vpc"
+  zone_id      = data.alicloud_zones.default.zones.0.multi_zone_ids.0
+  vpc_id       = data.alicloud_vpcs.default.vpcs.0.id
+  cidr_block   = cidrsubnet(data.alicloud_vpcs.default.vpcs.0.cidr_block, 4, 15)
 }
 module "redis_example" {
   source = "../../modules/redis-2.8-communtity-cluster"

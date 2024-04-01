@@ -6,7 +6,7 @@ locals {
   this_redis_instance_type              = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.instance_type, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_type, [""])[0]
   this_redis_instance_charge_type       = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.charge_type, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_charge_type, [""])[0]
   this_redis_instance_class             = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.instance_class, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_class, [""])[0]
-  this_redis_instance_name              = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.name, [""])[0] : concat(alicloud_kvstore_instance.this.*.instance_name, [""])[0]
+  this_redis_instance_name              = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.name, [""])[0] : concat(alicloud_kvstore_instance.this.*.db_instance_name, [""])[0]
   this_redis_instance_availability_zone = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.availability_zone, [""])[0] : concat(alicloud_kvstore_instance.this.*.availability_zone, [""])[0]
   this_redis_instance_vswitch_id        = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.vswitch_id, [""])[0] : concat(alicloud_kvstore_instance.this.*.vswitch_id, [""])[0]
   this_redis_instance_private_ip        = var.existing_instance_id != "" ? concat(data.alicloud_kvstore_instances.this.instances.*.private_ip, [""])[0] : concat(alicloud_kvstore_instance.this.*.private_ip, [""])[0]

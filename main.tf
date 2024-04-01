@@ -65,6 +65,7 @@ resource "alicloud_cms_alarm" "sharding_cpu_usage" {
   contact_groups     = var.alarm_rule_contact_groups
   silence_time       = var.alarm_rule_silence_time
   effective_interval = var.alarm_rule_effective_interval
+  webhook            = var.alarm_rule_webhook
 }
 
 resource "alicloud_cms_alarm" "sharding_connection_usage" {

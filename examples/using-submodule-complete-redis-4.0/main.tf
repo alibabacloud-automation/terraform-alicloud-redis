@@ -25,6 +25,9 @@ resource "alicloud_vswitch" "default" {
   cidr_block   = "10.4.0.0/24"
   vpc_id       = alicloud_vpc.default.id
   zone_id      = data.alicloud_zones.default.zones.0.id
+  timeouts {
+    delete = "20m"
+  }
 }
 
 module "redis_example" {
