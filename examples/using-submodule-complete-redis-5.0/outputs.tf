@@ -218,13 +218,3 @@ output "this_alarm_rule_sharding_memory_usage_status" {
   description = "The current alarm sharding memory usage rule status. "
   value       = module.redis_example.this_alarm_rule_sharding_memory_usage_status
 }
-
-output "this_alarm_rule_sharding_used_connection_status" {
-  description = "The current alarm sharding used connection rule status. "
-  value       = module.redis_example.this_alarm_rule_sharding_used_connection_status
-}
-
-output "this_alarm_rule_sharding_used_memory_status" {
-  description = "The current alarm sharding used memory rule status. "
-  value       = module.redis_example.this_alarm_rule_sharding_used_memory_status
-}
