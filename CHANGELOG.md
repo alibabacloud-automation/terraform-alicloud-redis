@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/alibabacloud-automation/terraform-alicloud-redis/compare/v1.8.1...v2.0.0) (2026-04-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* add provider version constraint for aliyun/alicloud
+
+### Features
+
+* add provider version constraint for aliyun/alicloud ([b7b49af](https://github.com/alibabacloud-automation/terraform-alicloud-redis/commit/b7b49af39181ae8f258d5117c989d587b017a1b6))
+
 ## 1.9.0 (Unreleased)
 ## 1.8.1 (January 02, 2024)
 
