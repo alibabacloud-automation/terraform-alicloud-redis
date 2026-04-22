@@ -27,6 +27,7 @@ resource "alicloud_kms_ciphertext" "kms" {
 
 module "vpc" {
   source             = "alibaba/vpc/alicloud"
+  version            = "2.0.0"
   create             = true
   vpc_cidr           = "172.16.0.0/16"
   vswitch_cidrs      = ["172.16.0.0/21"]
